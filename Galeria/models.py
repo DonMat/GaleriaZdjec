@@ -6,7 +6,7 @@ class obrazy(models.Model):
     description = models.TextField(max_length=250)
     date_created = models.DateField()
     date_modified = models.DateField()
-#    image = models.ImageField('Obraz', upload_to='photos', blank=True)
+    image = models.ImageField('Obraz', upload_to='photos', blank=True)
     album = models.IntegerField()
 
 
