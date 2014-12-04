@@ -9,19 +9,15 @@
     <meta name="author" content="">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static "Styles/bootstrap.min.css" %}"/>
+    <link rel="stylesheet" href="{% static "Styles/style.css" %}"/>
     {% block title %}
     {% endblock %}
 </head>
 <body>
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -47,13 +43,16 @@
 <div class="container">
     {% block content %}
     {% endblock %}
-    <footer>
-        <div class="row">
+    <div class="row">
+        <hr>
+    </div>
+    <div class="row">
+        <footer>
             <div class="col-lg-12">
                 <p>Copyright &copy; PSI Projekt-2 2014</p>
             </div>
-        </div>
-    </footer>
+        </footer>
+    </div>
 </div>
 <script src="{% static "Scripts/jquery-2.1.1.min.js" %}"></script>
 <script src="{% static "Scripts/bootstrap.min.js" %}"></script>
