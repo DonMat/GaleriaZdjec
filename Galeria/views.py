@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 def albums_view(request):
     return render_to_response('albums.html')
-
+ 
 def log_in(request):
     return render_to_response('log_in.html')
 
