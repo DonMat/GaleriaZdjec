@@ -8,5 +8,6 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^site/', include(Galeria.urls))
+    url(r'^site/', include(Galeria.urls)),
+    url(r'^$', include(Galeria.urls))   #routing gdy wpiszemy sam adres
 )

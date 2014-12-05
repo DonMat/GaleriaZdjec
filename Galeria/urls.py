@@ -7,3 +7,6 @@ urlpatterns = patterns('',
                        url(r'register/$', register),
                        url(r'albums/$', albums_view)
 )
+
+handler403 = 'Galeria.views.error_403'
+handler404 = 'Galeria.views.error_404'

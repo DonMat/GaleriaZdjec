@@ -15,3 +15,9 @@ def log_in(request):
 
 def register(request):
     return render_to_response('register.html')
+
+def error403(request):
+    return render_to_response('403.html')
+
+def error404(request):
+    return render_to_response('404.html')
