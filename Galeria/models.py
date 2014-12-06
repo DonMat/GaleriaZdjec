@@ -1,7 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-
-class obrazy(models.Model):
+class Obrazy(models.Model):
     title = models.TextField(max_length=50)
     description = models.TextField(max_length=250)
     date_created = models.DateField()
@@ -11,7 +11,8 @@ class obrazy(models.Model):
 
 
 
-#class comments(models.Model):
-#    user_id = models.OneToOneField(auth_user, id)
-#    date_created = models.DateTimeField()
-#    comment = models.SlugField(max_length=1000)
+class comments(models.Model):
+    user = models.ForeignKey(User)
+    obraz = models.IntegerField()
+    comment = models.SlugField(max_length=1000)
+    date_created = models.DateTimeField()
