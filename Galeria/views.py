@@ -11,10 +11,16 @@ def albums_view(request):
     return render_to_response('albums.html')
  
 def log_in(request):
-    return render_to_response('log_in.html')
+    if request.method == 'POST':
+        return HttpResponseRedirect('/albums/')
+    else:
+        return render_to_response('log_in.html')
 
 def register(request):
-    return render_to_response('register.html')
+    if request.method == 'POST':
+        return HttpResponseRedirect('/')
+    else:
+        return render_to_response('register.html')
 
 def error403(request):
     return render_to_response('403.html')

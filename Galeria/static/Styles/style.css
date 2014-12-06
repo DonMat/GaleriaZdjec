@@ -3,10 +3,28 @@
 }
 
 .panel-footer {
-	padding: 1px 15px;
-	color: #A0A0A0;
+    padding: 1px 15px;
+    color: #A0A0A0;
 }
 
 .register-footer {
     padding-left: 18px;
+}
+
+.incorrect-password {
+    border-color: red;
+    border-width: 2px;
+}
+
+.correct-password {
+    border-color: limegreen;
+    border-width: 2px;
+}
+
+.pass-are-different {
+    color: red;
+    padding: 3px;
+    padding-top:0;
+    font-weight: bold;
+    visibility: hidden;
 }

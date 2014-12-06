@@ -14,7 +14,8 @@
             <div class="row">
                 <hr>
             </div>
-            <form  role="form">
+            <form action="" method="post">
+                {% csrf_token %}
                 <div class="form-group">
                     <input type="text" name="login" id="login" class="form-control input-lg" placeholder="Login" tabindex="3">
                 </div>
@@ -27,7 +28,7 @@
             </form>
             <div class="row">
                 <div class="col-xs-12">
-                    Nie masz jeszcze konta? <a href="./register" onClick=""> Zarejestruj się </a>
+                    Nie masz jeszcze konta? <a href="/site/register/" onClick=""> Zarejestruj się </a>
                 </div>
             </div>
         </div>

@@ -14,7 +14,8 @@
             <div class="row">
                 <hr>
             </div>
-            <form role="form">
+            <form id="register-form" role="form" method="post">
+                {% csrf_token %}
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
@@ -44,6 +45,11 @@
                             <input type="password" name="password_confirmation" required="true" id="password_confirmation" class="form-control input-lg" placeholder="Potwierdź hasło" tabindex="6">
                         </div>
                     </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6" >
+                        <div class="pass-are-different">
+                            Podane hasła różnią się!
+                        </div>
+                    </div>
                 </div>
                 <div class="row register-footer">
                     Klikając <strong class="label label-primary">Rejestruj</strong> akceptujesz regulamin oraz
@@ -57,10 +63,11 @@
                         <input type="submit" value="Rejestruj" class="btn btn-primary btn-block btn-lg">
                     </div>
                     <div class="col-xs-12 col-md-6">
-                        <a href="./log_in" class="btn btn-success btn-block btn-lg">Zaloguj</a>
+                        <a href="/site/log_in" class="btn btn-success btn-block btn-lg">Zaloguj</a>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+    <script src="{% static "Scripts/registration-validate.js" %}"></script>
 {% endblock %}

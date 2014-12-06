@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 import Galeria.urls
+from django.http import HttpResponse, HttpResponseRedirect
 
 urlpatterns = patterns('',
     # Examples:
