@@ -9,7 +9,13 @@ from django.views.decorators.csrf import csrf_exempt
 
 def albums_view(request):
     return render_to_response('albums.html')
- 
+
+def album_view(request, album_id):
+    return render_to_response('album.html')
+
+def image_view(request, album_id, image_id):
+    return render_to_response('album.html')
+
 def log_in(request):
     if request.method == 'POST':
         return HttpResponseRedirect('/albums/')

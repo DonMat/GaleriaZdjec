@@ -1,56 +1,64 @@
 ﻿{% extends "base.html" %}
 {% load staticfiles %}
-{% block title %}
+{% block head %}
     <title>Albumy</title>
 {% endblock %}
 {% block content %}
     <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">
-                Tytuł galerii
-                <small>tutaj może opis</small>
-            </h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 portfolio-item">
-             <a href="#">
-                <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-            </a>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 grey-layer">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>
+                        Tytuł galerii
+                        <small>tutaj może opis</small>
+                        {% comment %}{% if user.is_authenticated %}{% endcomment %}
+                        <button class="btn btn-default glyphicon glyphicon-wrench" type="button"></button>
+                        {% comment %}{% endif %}{% endcomment %}
+                    </h1>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-4 portfolio-item">
+                    <a href="1">
+                        <img class="img-responsive" src="http://placehold.it/700x400" alt="">
+                    </a>
 
-            <h3>
-                <a href="#">Nazwa albumu</a>
-            </h3>
+                    <h3>
+                        <a href="1">Nazwa albumu</a>
+                    </h3>
 
-            <p>opis albumu</p>
-        </div>
-    </div>
-    <hr>
-    <div class="row text-center">
-        <div class="col-lg-12">
-            <ul class="pagination">
-                <li>
-                    <a href="#">&laquo;</a>
-                </li>
-                <li class="active">
-                    <a href="#">1</a>
-                </li>
-                <li>
-                    <a href="#">2</a>
-                </li>
-                <li>
-                    <a href="#">3</a>
-                </li>
-                <li>
-                    <a href="#">4</a>
-                </li>
-                <li>
-                    <a href="#">5</a>
-                </li>
-                <li>
-                    <a href="#">&raquo;</a>
-                </li>
-            </ul>
+                    <p>opis albumu</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row text-center">
+                <div class="col-lg-12">
+                    <ul class="pagination">
+                        <li>
+                            <a href="#">&laquo;</a>
+                        </li>
+                        <li class="active">
+                            <a href="#">1</a>
+                        </li>
+                        <li>
+                            <a href="#">2</a>
+                        </li>
+                        <li>
+                            <a href="#">3</a>
+                        </li>
+                        <li>
+                            <a href="#">4</a>
+                        </li>
+                        <li>
+                            <a href="#">5</a>
+                        </li>
+                        <li>
+                            <a href="#">&raquo;</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

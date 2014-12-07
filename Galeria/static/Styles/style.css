@@ -5,6 +5,7 @@
 
 .register-footer {
     padding-left: 18px;
+    text-align: center;
 }
 
 .incorrect-password {
@@ -23,6 +24,7 @@
     padding-top: 0;
     font-weight: bold;
     visibility: hidden;
+    text-align: center;
 }
 
 .body-image {
@@ -30,9 +32,15 @@
     background-size: 1920px 1080px;
 }
 
-.log-in {
+.grey-layer{
     padding: 10px 40px 20px 40px;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 20px;
+}
+
+.top-margin{
     margin-top: 75px;
+}
+.stranger-text {
+    margin-right: -10px;
 }
