@@ -2,8 +2,10 @@ from django.conf.urls import *
 from Galeria.views import *
 
 urlpatterns = patterns('',
-                       url(r'^$', log_in),
+                       url(r'^$', redirect_log_in),
                        url(r'^log_in/$', log_in),
+                       url(r'^auth/$', auth_view),
+                       url(r'^log_out/$', log_out),
                        url(r'^register/$', register),
                        url(r'^album/$', albums_view),
                        url(r'^album/(?P<album_id>\d+)$', album_view),

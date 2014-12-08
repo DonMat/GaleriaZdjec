@@ -10,6 +10,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import Galeria
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -82,6 +84,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/Images/'
+MEDIA_ROOT =  os.path.join(Galeria.__path__[0],  'static/Images/')
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
