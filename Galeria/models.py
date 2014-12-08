@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 class Obrazy(models.Model):
     title = models.TextField(max_length=50)
     description = models.TextField(max_length=250)
-    date_created = models.DateField()
     date_modified = models.DateField()
-    image = models.ImageField('Obraz', upload_to='photos', blank=True)
+    date_created = models.DateField()
+    image = models.ImageField(upload_to='photos')
     album = models.IntegerField()
 
 

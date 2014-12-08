@@ -1,30 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-REQUIRED = 'To pole jest wymagane!'
-
-'''
-class RegisterForm(forms.Form):
-    first_name = forms.CharField(required=True,
-                                 error_messages={'required': REQUIRED})
-
-    last_name = forms.CharField(required=True,
-                                error_messages={'required': REQUIRED})
-
-    login = forms.CharField(required=True,
-                            error_messages={'required': REQUIRED})
-
-    email = forms.CharField(required=True,
-                            error_messages={'required': REQUIRED})
-
-    password = forms.CharField(min_length=10, required=True,
-                               error_messages={'required': REQUIRED,
-                                               'min_length': 'Haslo musi składać się z min 10 znaków.'})
-
-    password_confirmation = forms.CharField(min_length=10, required=True,
-                                            error_messages={'required': REQUIRED,
-                                                            'min_length': 'Haslo musi składać się z min 10 znaków.'})
-'''
+from Galeria.models import Obrazy
 
 
 class RegisterForm(UserCreationForm):
@@ -45,3 +22,10 @@ class RegisterForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+class uploadObrazek(forms.ModelForm):
+
+    class Meta:
+        model = Obrazy
+        fields = ('title', 'description','date_created', 'date_modified', 'image', 'album')

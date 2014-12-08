@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form action="/site/upload/" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <ul>
+        {{ form.as_ul }}
+    </ul>
+     <input type="submit" class="btn btn-lg btn-primary btn-block" value="Wgraj">
+    </form>
+
+{% endblock %}
