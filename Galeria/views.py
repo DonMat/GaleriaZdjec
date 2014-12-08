@@ -3,52 +3,40 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.contrib import auth
 from django.core.context_processors import csrf
-from Galeria.forms import RegisterForm
 
 from datetime import datetime
 from django.http import HttpResponseNotFound
 from django.views.decorators.csrf import csrf_exempt
 
 
-def albums_view(request):
-    return render_to_response('albums.html')
+def albums_view(request, user_id):
+    t = loader.get_template("albums.html")
+    c = Context({'user' : request.user})
+    return HttpResponse(t.render(c))
 
+def album_view(request, user_id, album_id):
+    ctx = Context({'user': request.user})
+    return render_to_response('album.html', ctx)
 
-def album_view(request, album_id):
+def image_view(request, user_id ,album_id, image_id):
     return render_to_response('album.html')
-
-
-def image_view(request, album_id, image_id):
-    return render_to_response('album.html')
-
 
 def log_in(request):
-
     c = {}
     c.update(csrf(request))
     return render_to_response('log_in.html', c)
 
-
 def register(request):
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/site/log_in/')
-
-    c = {}
-    c.update(csrf(request))
-    c['form'] = RegisterForm()
-    return render_to_response('register.html', c)
-
+        return HttpResponseRedirect('/')
+    else:
+        return render_to_response('register.html')
 
 def error403(request):
     return render_to_response('403.html')
 
-
 def error404(request):
     return render_to_response('404.html')
-
 
 def auth_view(request):
     if request.method == 'POST':
@@ -58,22 +46,16 @@ def auth_view(request):
         user = auth.authenticate(username=login, password=password)
         if user is not None:
             auth.login(request, user)
-            response = HttpResponseRedirect('/site/album/')
-            response.set_cookie('user', user.username)
-            request.session['user'] = user.username
-            return response
+            ctx = Context(request, {'user': user})
+            return HttpResponseRedirect('/site/albums/' + str(user.id), ctx)
         else:
             return HttpResponseRedirect('/site/log_in')
     return render_to_response('404.html')
 
-
 def log_out(request):
     auth.logout(request)
-    response = HttpResponseRedirect('/site/log_in')
-    response.set_cookie('user', '')
-    request.session['user'] = ''
-    return response
+    return HttpResponseRedirect('/site/log_in')
 
 
 def redirect_log_in(request):
-     return HttpResponseRedirect('/site/log_in')
+    return HttpResponseRedirect('/site/log_in')
