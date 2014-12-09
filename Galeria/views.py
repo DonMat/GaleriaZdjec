@@ -89,4 +89,4 @@ def uploadobr(request):
     c.update(csrf(request))
 
     c['form'] = form
-    return render_to_response('upload.html', c)
+    return render_to_response('upload.html', c, context_instance=RequestContext(request))
