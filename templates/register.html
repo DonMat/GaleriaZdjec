@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load custom_tag %}
 {% block head %}
     <title>Rejestracja</title>
 {% endblock %}
@@ -11,39 +12,39 @@
                     <small>To nic nie kosztuje.</small>
                 </h1>
                 <hr>
-             </div>
+            </div>
             <form id="register-form" action="/site/register/" role="form" method="post">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
-                            <input type="text" name="first_name" required="true" id="first_name" class="form-control input-lg" placeholder="Imię" tabindex="1">
+                            {{ form.first_name|att:"placeholder:Imię;required:true;tabindex:1;class:form-control input-lg" }}
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
-                            <input type="text" name="last_name" required="true" id="last_name" class="form-control input-lg" placeholder="Nazwisko" tabindex="2">
+                            {{ form.last_name|att:"placeholder:Nazwisko;required:true;tabindex:2;class:form-control input-lg" }}
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="text" required="true" name="login" id="login" class="form-control input-lg" placeholder="Login" tabindex="3">
+                    {{ form.username|att:"placeholder:Login;required:true;tabindex:3;class:form-control input-lg" }}
                 </div>
                 <div class="form-group">
-                    <input type="email" required="true" name="email" id="email" class="form-control input-lg" placeholder="Adres email" tabindex="4">
+                    {{ form.email|att:"placeholder:Adres email;required:true;tabindex:4;class:form-control input-lg" }}
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
-                            <input type="password" name="password" required="true" id="password" class="form-control input-lg" placeholder="Hasło" tabindex="5">
+                            {{ form.password1|att:"placeholder:Hasło;required:true;tabindex:5;class:form-control input-lg" }}
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
-                            <input type="password" name="password_confirmation" required="true" id="password_confirmation" class="form-control input-lg" placeholder="Potwierdź hasło" tabindex="6">
+                            {{ form.password2|att:"placeholder:Potwierdź hasło;required:true;tabindex:6;class:form-control input-lg" }}
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12" >
+                    <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="pass-are-different">
                             Podane hasła różnią się!
                         </div>
@@ -65,13 +66,9 @@
                     </div>
                 </div>
             </form>
-
-            <form action="/site/register/" method="post">
-                {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="Rejestruj" class="btn btn-primary btn-block btn-lg">
-            </form>
         </div>
     </div>
+{% endblock %}
+{% block scripts %}
     <script src="{% static "Scripts/registration-validate.js" %}"></script>
 {% endblock %}

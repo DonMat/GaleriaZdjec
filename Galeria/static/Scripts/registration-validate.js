@@ -1,14 +1,14 @@
-$("#password").keyup(function () {
+$("#id_password1").keyup(function () {
     validate();
 });
 
-$("#password_confirmation").keyup(function (){
+$("#id_password2").keyup(function (){
     validate();
 });
 
 function validate(){
-    var pass = $("#password");
-    var pass_confirm = $("#password_confirmation");
+    var pass = $("#id_password1");
+    var pass_confirm = $("#id_password2");
     if (pass_confirm.val() != pass.val()) {
         pass.removeClass("correct-password");
         pass_confirm.removeClass("correct-password");

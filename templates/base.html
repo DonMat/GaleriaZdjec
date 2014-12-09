@@ -23,20 +23,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Twoja Galeria</a>
+            {% if user.is_authenticated %}
+                <a class="navbar-brand" href="/site/albums/{{ user.id }}">Twoja Galeria</a>
+            {% else %}
+                <a class="navbar-brand" href="/site/log_in">Twoja Galeria</a>
+            {% endif %}
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="#">jakieś</a>
-                </li>
-                <li>
-                    <a href="#">linki</a>
-                </li>
-                <li>
-                    <a href="#">ss</a>
-                </li>
-            </ul>
             <div class="nav col-sm-3 col-md-3 ">
                 <form class="navbar-form" action="/site/search/" method="get">
                     <div class="input-group">
@@ -69,8 +62,6 @@
         </div>
     </div>
 </nav>
-<script src="{% static "Scripts/jquery-2.1.1.min.js" %}"></script>
-<script src="{% static "Scripts/bootstrap.min.js" %}"></script>
 <div class="container top-margin">
     {% block content %}
     {% endblock %}
@@ -85,5 +76,9 @@
         </footer>
     </div>
 </div>
+<script src="{% static "Scripts/jquery-2.1.1.min.js" %}"></script>
+<script src="{% static "Scripts/bootstrap.min.js" %}"></script>
+{% block scripts %}
+{% endblock %}
 </body>
 </html>

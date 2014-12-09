@@ -1,11 +1,45 @@
 {% extends "base.html" %}
-
+{% load staticfiles %}
+{% load custom_tag %}
+{% block head %}
+    <link rel='stylesheet' href={% static "Styles/fileinput.css" %}/>
+    <title>Dodawanie zdjęcia</title>
+{% endblock %}
 {% block content %}
-    <form action="/site/upload/" method="post" enctype="multipart/form-data">{% csrf_token %}
-    <ul>
-        {{ form.as_ul }}
-    </ul>
-     <input type="submit" class="btn btn-lg btn-primary btn-block" value="Wgraj">
-    </form>
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 grey-layer">
+            <div class="row">
+                <h1>Dodaj zdjęcie,
+                    <small>no zrób to! >:-]</small>
+                </h1>
+                <hr>
+            </div>
+            <form action="/site/upload/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.title|att:"placeholder:Tytuł zdjęcia;required:true;tabindex:1;class:form-control input-lg" }}
+                </div>
+                <div class="form-group">
+                    {{ form.description|att:"placeholder:Opis zdjęcia;required:true;tabindex:2;class:form-control input-lg" }}
+                </div>
+                <div class="form-group">
+                    {{ form.image|att:"class:file;data-show-upload:false;data-preview-file-type:image;data-initial-caption:Brak pliku;data-overwrite-initial:false;required:true;accept:image/jpeg,image/png,image/tiff" }}
+                </div>
+                <div class="form-group">
+                    {{ form.error }}
+                </div>
+                <div class="form-group">
+                    {% comment %}{{ form.tags|att:"placeholder:Tagi oddzielone spacją;required:true;tabindex:3;class:form-control input-lg" }}{% endcomment %}
+                </div>
+                {% comment %}<ul>
+                    {{ form.as_ul }}
+                </ul>{% endcomment %}
+                <input type="submit" class="btn btn-lg btn-primary btn-block" value="Wgraj">
+            </form>
+        </div>
+    </div>
+{% endblock %}
 
+{% block scripts %}
+    <script src="{% static "Scripts/fileinput.js" %}"></script>
 {% endblock %}

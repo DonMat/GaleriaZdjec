@@ -11,9 +11,9 @@
                     <h1>
                         Tytuł galerii
                         <small>tutaj może opis</small>
-                        {% comment %}{% if user.is_authenticated %}{% endcomment %}
-                        <button class="btn btn-default glyphicon glyphicon-wrench" type="button"></button>
-                        {% comment %}{% endif %}{% endcomment %}
+                        {% if user.is_authenticated %}
+                            <button class="btn btn-default glyphicon glyphicon-wrench" type="button"></button>
+                        {% endif %}
                     </h1>
                 </div>
             </div>

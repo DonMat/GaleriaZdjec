@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block head %}
-    <title> tytuł przykładowego albumu </title>
-{% endblock %}
-{% block content %}
     <link rel='stylesheet' href={% static "Styles/colorbox.css" %}/>
     <link rel='stylesheet' href={% static "Styles/justifiedGallery.css" %}/>
+    <title>album tytuł</title>
+{% endblock %}
+{% block content %}
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 grey-layer">
             <div class="row">
                 <h1>Album
                     <small>Opis</small>
-                    {% comment %}{% if user.is_authenticated %}{% endcomment %}
-                    <button class="btn btn-default glyphicon glyphicon-wrench" type="button"></button>
-                    {% comment %}{% endif %}{% endcomment %}
+                    {% if user.is_authenticated %}
+                        <button class="btn btn-default glyphicon glyphicon-wrench" type="button"></button>
+                    {% endif %}
                 </h1>
                 <hr>
             </div>
@@ -71,6 +71,9 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
     <script src="{% static "Scripts/jquery.colorbox-min.js" %}"></script>
     <script src="{% static "Scripts/jquery.justifiedGallery.js" %}"></script>
     <script>

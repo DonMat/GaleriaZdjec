@@ -11,11 +11,18 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 def albums_view(request, user_id):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/site/log_in')
+
     t = loader.get_template("albums.html")
     c = Context({'user' : request.user})
     return HttpResponse(t.render(c))
 
+
 def album_view(request, user_id, album_id):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/site/log_in')
+
     ctx = Context({'user': request.user})
     return render_to_response('album.html', ctx)
 
@@ -25,6 +32,9 @@ def image_view(request, user_id ,album_id, image_id):
 
 
 def log_in(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/site/albums/' + str(request.user.id))
+
     c = {}
     c.update(csrf(request))
     return render_to_response('log_in.html', c)
@@ -74,7 +84,10 @@ def redirect_log_in(request):
     return HttpResponseRedirect('/site/log_in')
 
 
-def uploadobr(request):
+def upload_image(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/site/log_in')
+
     if request.method == 'POST':
         form = uploadObrazek(request.POST, request.FILES)
 
@@ -89,4 +102,5 @@ def uploadobr(request):
     c.update(csrf(request))
 
     c['form'] = form
+
     return render_to_response('upload.html', c, context_instance=RequestContext(request))
