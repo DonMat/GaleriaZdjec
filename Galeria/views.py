@@ -41,7 +41,10 @@ def create_album(request, user_id):
     if request.method == 'POST':
         form = GalleryAlbumForm(request.POST)
         if form.is_valid():
-            form.save()
+            cd = form.cleaned_data
+            album = Album(title=cd['title'], description=cd['description'])
+            album.user_id = user_id
+            album.save()
     else:
         form = GalleryAlbumForm()
 
