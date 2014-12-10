@@ -13,7 +13,7 @@ class Obrazy(models.Model):
     album = models.ForeignKey(Album)
     title = models.TextField(max_length=50)
     description = models.TextField(max_length=250)
-    date_created = models.DateField()
+    date_created = models.DateTimeField(auto_now=True)
     image = models.ImageField(upload_to='photos')
     tags = models.TextField(max_length=300)
 
