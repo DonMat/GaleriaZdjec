@@ -21,11 +21,11 @@
             <div class="row">
                 {% for album in albums %}
                 <div class="col-md-4 portfolio-item">
-                    <a href="./{{ album.id }}/">
+                    <a href="./{{ album.id }}">
                         <img class="img-responsive" src="http://placehold.it/700x400" alt="">
                     </a>
                     <h3>
-                        <a href="./{{ album.id }}/">{{ album.title }}</a>
+                        <a href="./{{ album.id }}">{{ album.title }}</a>
                     </h3>
                     <p>{{ album.description }}</p>
                 </div>
