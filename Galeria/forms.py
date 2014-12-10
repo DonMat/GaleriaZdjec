@@ -27,7 +27,7 @@ class UploadImageForm(forms.ModelForm):
 
     class Meta:
         model = Obrazy
-        fields = ('title', 'description','date_created', 'date_modified', 'image', 'album', 'tags')
+        fields = ('title', 'description','date_created', 'image', 'album', 'tags')
 
 
 class GallerySettingsForm(forms.ModelForm):

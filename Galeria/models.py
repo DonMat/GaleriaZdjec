@@ -6,12 +6,13 @@ class Album(models.Model):
     title = models.TextField(max_length=50)
     description = models.TextField(max_length=250)
 
+    def __str__(self):
+        return self.title
 
 class Obrazy(models.Model):
     album = models.ForeignKey(Album)
     title = models.TextField(max_length=50)
     description = models.TextField(max_length=250)
-    date_modified = models.DateField()
     date_created = models.DateField()
     image = models.ImageField(upload_to='photos')
     tags = models.TextField(max_length=300)
