@@ -26,5 +26,6 @@ class Comments(models.Model):
 
 
 class GallerySettings(models.Model):
+    user = models.ForeignKey(User)
     title = models.TextField(max_length=50)
-    description = models.TextField(max_length=250)
+    description = models.TextField(max_length=250, null=True)

@@ -6,13 +6,13 @@
 {% block content %}
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 grey-layer">
-            <form method="post">
+            <form method="post" action="/site/albums/{{ user.id }}/">
             {% csrf_token %}
                 <div class="row">
                     <div class="col-xs-12">
                         <h1>
-                            <input type="text" value="{{ gallery.title }}"/>
-                            <small><input type="text" value="{{ gallery.description }}"/></small>
+                            <input type="text" value="{{ form.title }}"/>
+                            <small><input type="text" value="{{ form.description }}"/></small>
                             {% if user.is_authenticated %}
                                 <button type="submit" class="btn btn-default">
                                     <i class="glyphicon glyphicon-wrench icon-user icon-white"></i> Zapisz
