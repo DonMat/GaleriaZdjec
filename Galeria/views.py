@@ -3,10 +3,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.contrib import auth
 from django.core.context_processors import csrf
+from django.template.defaultfilters import title
 from Galeria.forms import *
 from Galeria.models import *
 from django.template import RequestContext
 from django.shortcuts import render
+
 
 def albums_view(request, user_id):
     if not request.user.is_authenticated():

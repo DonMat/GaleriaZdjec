@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class Album(models.Model):
     user = models.ForeignKey(User)
     title = models.TextField(max_length=50)
-    description = models.TextField(max_length=250)
+    description = models.TextField(max_length=250, default='')
 
     def __str__(self):
         return self.title
