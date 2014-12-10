@@ -12,7 +12,7 @@ def albums_view(request, user_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/site/log_in')
 
-    albums = Album.objects.all(user_id=int(user_id))
+    albums = Album.objects.filter(user_id=int(user_id))
     return render(request, "albums.html", {'albums' : albums})
 
 
