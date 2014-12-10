@@ -6,13 +6,13 @@
 {% block content %}
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 grey-layer">
-            <form method="post" action="/site/albums/{{ user.id }}/">
+            <form method="post">
             {% csrf_token %}
                 <div class="row">
                     <div class="col-xs-12">
                         <h1>
-                            <input type="text" value="{{ form.title }}"/>
-                            <small><input type="text" value="{{ form.description }}"/></small>
+                            {{ form.title }}
+                            <small>{{ form.description }}</small>
                             {% if user.is_authenticated %}
                                 <button type="submit" class="btn btn-default">
                                     <i class="glyphicon glyphicon-wrench icon-user icon-white"></i> Zapisz
@@ -20,20 +20,6 @@
                             {% endif %}
                         </h1>
                     </div>
-                </div>
-                <hr>
-                <div class="row">
-                    {% for album in albums %}
-                        <div class="col-md-4 portfolio-item">
-                            <a href="./{{ album.id }}/">
-                                <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-                            </a>
-                            <h3>
-                                <a href="./{{ album.id }}/">{{ album.title }}</a>
-                            </h3>
-                            <p>{{ album.description }}</p>
-                        </div>
-                    {% endfor %}
                 </div>
             </form>
         </div>

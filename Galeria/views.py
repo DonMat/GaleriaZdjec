@@ -13,7 +13,7 @@ def albums_view(request, user_id):
         return HttpResponseRedirect('/site/log_in')
 
     albums = Album.objects.filter(user_id=int(user_id))
-    gallery = GallerySettings.objects.get(id=int(user_id))
+    gallery = GallerySettings.objects.get(user_id=int(user_id))
     return render(request, "albums.html", {'albums' : albums, 'gallery': gallery})
 
 
@@ -22,16 +22,24 @@ def albums_edit_view(request, user_id):
         return HttpResponseRedirect('/site/log_in')
 
     if request.method == 'POST':
-        gallery = GallerySettingsForm(request.POST)
-        if gallery.is_valid():
+        form = GallerySettingsForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            gallery = GallerySettings.objects.get(user_id=int(user_id))
+            gallery.description = cd['description']
+            gallery.title=cd['title']
             gallery.save()
             return HttpResponseRedirect('/site/albums/' + str(request.user.id))
         else:
-            return render(request, "albums_edit.html")
+            c = {}
+            c.update(csrf(request))
+            c['form'] = form
+            return render(request, 'albums_edit.html', c)
     else:
-        albums = Album.objects.filter(user_id=int(user_id))
-        gallery = GallerySettings.objects.get(id=int(user_id))
-        return render(request, "albums_edit.html" ,{'albums': albums, 'form': gallery})
+        gallery = GallerySettings.objects.get(user_id=int(user_id))
+        data = {'id': gallery.id, 'title':gallery.title, 'description':gallery.description}
+        form = GallerySettingsForm(initial=data)
+        return render(request, 'albums_edit.html', {'form': form})
 
 
 def create_album(request, user_id):
@@ -45,6 +53,7 @@ def create_album(request, user_id):
             album = Album(title=cd['title'], description=cd['description'])
             album.user_id = user_id
             album.save()
+            return HttpResponseRedirect('/site/albums/' + str(user_id))
     else:
         form = GalleryAlbumForm()
 
