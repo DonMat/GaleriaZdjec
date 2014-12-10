@@ -29,11 +29,8 @@
                     {{ form.error }}
                 </div>
                 <div class="form-group">
-                    {% comment %}{{ form.tags|att:"placeholder:Tagi oddzielone spacją;required:true;tabindex:3;class:form-control input-lg" }}{% endcomment %}
+                    {{ form.tags|att:"placeholder:Wpisz tagi najtrafniej opisujące zdjęcie oddzielone spacją;required:true;tabindex:3;class:form-control input-lg" }}
                 </div>
-                {% comment %}<ul>
-                    {{ form.as_ul }}
-                </ul>{% endcomment %}
                 <input type="submit" class="btn btn-lg btn-primary btn-block" value="Wgraj">
             </form>
         </div>

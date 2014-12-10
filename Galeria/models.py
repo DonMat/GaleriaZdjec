@@ -1,18 +1,29 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class Album(models.Model):
+    user = models.ForeignKey(User)
+    title = models.TextField(max_length=50)
+    description = models.TextField(max_length=250)
+
+
 class Obrazy(models.Model):
+    album = models.ForeignKey(Album)
     title = models.TextField(max_length=50)
     description = models.TextField(max_length=250)
     date_modified = models.DateField()
     date_created = models.DateField()
     image = models.ImageField(upload_to='photos')
-    album = models.IntegerField()
+    tags = models.TextField(max_length=300)
 
 
-
-class comments(models.Model):
+class Comments(models.Model):
     user = models.ForeignKey(User)
-    obraz = models.IntegerField()
+    obraz = models.ForeignKey(Obrazy)
     comment = models.SlugField(max_length=1000)
     date_created = models.DateTimeField()
+
+
+class GallerySettings(models.Model):
+    title = models.TextField(max_length=50)
+    description = models.TextField(max_length=250)

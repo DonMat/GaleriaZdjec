@@ -2,4 +2,4 @@ from django.contrib import admin
 from Galeria.models import *
 # Register your models here.
 admin.site.register(Obrazy)
-admin.site.register(comments)
+admin.site.register(Comments)

@@ -1,7 +1,6 @@
 from django import forms
-from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from Galeria.models import Obrazy
+from Galeria.models import *
 
 
 class RegisterForm(UserCreationForm):
@@ -24,8 +23,22 @@ class RegisterForm(UserCreationForm):
         return user
 
 
-class uploadObrazek(forms.ModelForm):
+class UploadImageForm(forms.ModelForm):
 
     class Meta:
         model = Obrazy
-        fields = ('title', 'description','date_created', 'date_modified', 'image', 'album')
+        fields = ('title', 'description','date_created', 'date_modified', 'image', 'album', 'tags')
+
+
+class GallerySettingsForm(forms.ModelForm):
+
+    class Meta:
+        model = GallerySettings
+        fields = ('title', 'description')
+
+
+class GalleryAlbumForm(forms.ModelForm):
+
+    class Meta:
+        model = Album
+        fields = ('title', 'description')

@@ -12,51 +12,24 @@
                         Tytuł galerii
                         <small>tutaj może opis</small>
                         {% if user.is_authenticated %}
-                            <button class="btn btn-default glyphicon glyphicon-wrench" type="button"></button>
+                            <a href="./edit" class="btn btn-default glyphicon glyphicon-wrench" type="button"></a>
                         {% endif %}
                     </h1>
                 </div>
             </div>
             <hr>
             <div class="row">
+                {% for album in albums %}
                 <div class="col-md-4 portfolio-item">
-                    <a href="1">
+                    <a href="./{{ album.id }}/">
                         <img class="img-responsive" src="http://placehold.it/700x400" alt="">
                     </a>
-
                     <h3>
-                        <a href="./2/">Nazwa albumu</a>
+                        <a href="./{{ album.id }}/">{{ album.title }}</a>
                     </h3>
-                    <p>opis albumu</p>
+                    <p>{{ album.description }}</p>
                 </div>
-            </div>
-            <hr>
-            <div class="row text-center">
-                <div class="col-lg-12">
-                    <ul class="pagination">
-                        <li>
-                            <a href="#">&laquo;</a>
-                        </li>
-                        <li class="active">
-                            <a href="#">1</a>
-                        </li>
-                        <li>
-                            <a href="#">2</a>
-                        </li>
-                        <li>
-                            <a href="#">3</a>
-                        </li>
-                        <li>
-                            <a href="#">4</a>
-                        </li>
-                        <li>
-                            <a href="#">5</a>
-                        </li>
-                        <li>
-                            <a href="#">&raquo;</a>
-                        </li>
-                    </ul>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
