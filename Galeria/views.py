@@ -43,9 +43,6 @@ def albums_edit_view(request, user_id):
         "description": "mój opis galerii"
     }
 
-    # t = loader.get_template("albums_edit.html")
-    # c = Context({'user': request.user, 'albums': albums, 'form': form})
-    # return HttpResponse(t.render(c))
     return render(request, "albums_edit.html" ,{'albums': albums, 'form': form})
 
 
@@ -53,8 +50,7 @@ def album_view(request, user_id, album_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/site/log_in')
 
-    ctx = RequestContext({'user': request.user})
-    return render_to_response('album.html', ctx)
+    return render(request, 'album.html')
 
 
 def image_view(request, user_id, album_id, image_id):
