@@ -17,7 +17,7 @@ def albums_view(request, user_id):
     return render(request, "albums.html", {'albums' : albums, 'gallery': gallery})
 
 
-def albums_edit_view(request, user_id):
+def main_album_edit(request, user_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/site/log_in')
 
@@ -39,6 +39,31 @@ def albums_edit_view(request, user_id):
         gallery = GallerySettings.objects.get(user_id=int(user_id))
         data = {'id': gallery.id, 'title':gallery.title, 'description':gallery.description}
         form = GallerySettingsForm(initial=data)
+        return render(request, 'albums_edit.html', {'form': form})
+
+
+def sub_album_edit(request, user_id, album_id):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/site/log_in')
+
+    if request.method == 'POST':
+        form = GalleryAlbumForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            gallery = Album.objects.get(user_id=int(user_id), id=int(album_id))
+            gallery.description = cd['description']
+            gallery.title = cd['title']
+            gallery.save()
+            return HttpResponseRedirect('/site/albums/' + str(request.user.id) + '/'+album_id)
+        else:
+            c = {}
+            c.update(csrf(request))
+            c['form'] = form
+            return render(request, 'albums_edit.html', c)
+    else:
+        gallery = Album.objects.get(user_id=int(user_id), id=int(album_id))
+        data = {'id': gallery.id, 'title': gallery.title, 'description': gallery.description}
+        form = GalleryAlbumForm(initial=data)
         return render(request, 'albums_edit.html', {'form': form})
 
 
@@ -67,7 +92,8 @@ def album_view(request, user_id, album_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/site/log_in')
 
-    return render(request, 'album.html')
+    album = Album.objects.get(user_id=int(user_id), id=int(album_id))
+    return render(request, 'album.html', {'albu': album})
 
 
 def image_view(request, user_id, album_id, image_id):
