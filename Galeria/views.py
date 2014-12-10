@@ -22,29 +22,33 @@ def albums_edit_view(request, user_id):
         return HttpResponseRedirect('/site/log_in')
 
     if request.method == 'POST':
+        gallery = GallerySettingsForm(request.POST)
+        if gallery.is_valid():
+            gallery.save()
             return HttpResponseRedirect('/site/albums/' + str(request.user.id))
+        else:
+            return render(request, "albums_edit.html")
+    else:
+        albums = Album.objects.filter(user_id=int(user_id))
+        gallery = GallerySettings.objects.get(id=int(user_id))
+        return render(request, "albums_edit.html" ,{'albums': albums, 'form': gallery})
 
-    albums = [
-        {'title': 'tytuł 1',
-         'description': 'opis 1',
-         'id': '1'},
-        {'title': 'tytuł 2',
-         'description': 'opis 2',
-         'id': '2'},
-        {'title': 'tytuł 3',
-         'description': 'opis 3',
-         'id': '3'},
-        {'title': 'tytuł 4',
-         'description': 'opis 4',
-         'id': '4'}
-    ]
 
-    form = {
-        "title": "mój tytuł galerii",
-        "description": "mój opis galerii"
-    }
+def create_album(request, user_id):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/site/log_in')
 
-    return render(request, "albums_edit.html" ,{'albums': albums, 'form': form})
+    if request.method == 'POST':
+        form = GalleryAlbumForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = GalleryAlbumForm()
+
+    c = {}
+    c.update(csrf(request))
+    c['form'] = form
+    return render(request, 'album_add.html', c)
 
 
 def album_view(request, user_id, album_id):
