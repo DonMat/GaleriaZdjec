@@ -172,3 +172,11 @@ def upload_image(request):
     c.update(csrf(request))
     c['form'] = form
     return render(request, 'upload.html', c)
+
+
+def sub_album_delete(request, user_id, album_id):
+    alb = Album.objects.get(user_id=int(user_id), id=int(album_id))
+    if not None:
+        alb.delete()
+
+    return HttpResponseRedirect('/site/albums/'+user_id+'/')

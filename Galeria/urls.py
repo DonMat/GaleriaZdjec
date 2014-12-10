@@ -13,7 +13,8 @@ urlpatterns = patterns('',
                        url(r'^albums/(?P<user_id>\d+)/edit$', main_album_edit),
                        url(r'^albums/(?P<user_id>\d+)/(?P<album_id>\d+)$', album_view),
                        url(r'^albums/(?P<user_id>\d+)/(?P<album_id>\d+)/(?P<image_id>\d+)$', image_view),
-                       url(r'^albums/(?P<user_id>\d+)/(?P<album_id>\d+)/edit$', sub_album_edit)
+                       url(r'^albums/(?P<user_id>\d+)/(?P<album_id>\d+)/edit$', sub_album_edit),
+                       url(r'^albums/(?P<user_id>\d+)/(?P<album_id>\d+)/delete$', sub_album_delete)
 )
 
 handler403 = 'Galeria.views.error_403'
