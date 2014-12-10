@@ -13,7 +13,8 @@ def albums_view(request, user_id):
         return HttpResponseRedirect('/site/log_in')
 
     albums = Album.objects.filter(user_id=int(user_id))
-    return render(request, "albums.html", {'albums' : albums})
+    gallery = GallerySettings.objects.get(id=int(user_id))
+    return render(request, "albums.html", {'albums' : albums, 'gallery': gallery})
 
 
 def albums_edit_view(request, user_id):

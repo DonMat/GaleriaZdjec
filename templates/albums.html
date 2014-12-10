@@ -12,7 +12,9 @@
                         Tytuł galerii
                         <small>tutaj może opis</small>
                         {% if user.is_authenticated %}
-                            <a href="./edit" class="btn btn-default glyphicon glyphicon-wrench" type="button"></a>
+                            <a href="./edit" class="btn btn-default" type="button">
+                                <i class="glyphicon glyphicon-wrench icon-user icon-white"></i> Edytuj
+                            </a>
                         {% endif %}
                     </h1>
                 </div>
@@ -20,15 +22,17 @@
             <hr>
             <div class="row">
                 {% for album in albums %}
-                <div class="col-md-4 portfolio-item">
-                    <a href="./{{ album.id }}">
-                        <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-                    </a>
-                    <h3>
-                        <a href="./{{ album.id }}">{{ album.title }}</a>
-                    </h3>
-                    <p>{{ album.description }}</p>
-                </div>
+                    <div class="col-md-4 portfolio-item">
+                        <a href="./{{ album.id }}">
+                            <img class="img-responsive" src="http://placehold.it/700x400" alt="">
+                        </a>
+
+                        <h3>
+                            <a href="./{{ album.id }}">{{ album.title }}</a>
+                        </h3>
+
+                        <p>{{ album.description }}</p>
+                    </div>
                 {% endfor %}
             </div>
         </div>
