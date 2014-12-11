@@ -6,8 +6,11 @@
 {% block content %}
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 grey-layer">
+            <a href="./delete" class="btn btn-default" type="button">
+                <i class="glyphicon glyphicon-wrench icon-user icon-white"></i> Usuń
+            </a>
             <form method="post">
-            {% csrf_token %}
+                {% csrf_token %}
                 <div class="row">
                     <div class="col-xs-12">
                         <h1>

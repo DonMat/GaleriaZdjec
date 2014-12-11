@@ -3,77 +3,30 @@
 {% block head %}
     <link rel='stylesheet' href={% static "Styles/colorbox.css" %}/>
     <link rel='stylesheet' href={% static "Styles/justifiedGallery.css" %}/>
-    <title>album tytuł</title>
+    <title>{{ album.title }}</title>
 {% endblock %}
 {% block content %}
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 grey-layer">
             <div class="row">
                 <h1>
-                    {{ albu.title }}
-                        <small>{{ albu.description }}</small>
+                    {{ album.title }}
+                    <small>{{ album.description }}</small>
                     {% if user.is_authenticated %}
-                            <a href="./{{ albu.id }}/edit" class="btn btn-default" type="button">
-                                <i class="glyphicon glyphicon-wrench icon-user icon-white"></i> Edytuj
-                            </a>
-
-                        <a href="./{{ albu.id }}/delete" class="btn btn-default" type="button">
-                                <i class="glyphicon glyphicon-wrench icon-user icon-white"></i> Usuń
-                            </a>
+                        <a href="./edit" class="btn btn-default" type="button">
+                            <i class="glyphicon glyphicon-wrench icon-user icon-white"></i> Edytuj
+                        </a>
                     {% endif %}
                 </h1>
                 <hr>
             </div>
             <div class="row">
                 <div id="gallery">
-                    <a href="{% static "Images/photos/8083451788_552becfbc7_b.jpg" %}" title="What's your destination?">
-                        <img alt="What's your destination?" src="{% static "Images/photos/8083451788_552becfbc7_m.jpg" %}"/>
-                    </a>
-                    <a href="{% static "Images/photos/7948632554_01f6ae6b6f_b.jpg" %}" title="Just in a dream Place">
-                        <img alt="Just in a dream Place" src="{% static "Images/photos/7948632554_01f6ae6b6f_m.jpg" %}"/>
-                    </a>
-                    <a href="{% static "Images/photos/7302459122_19fa1d8223_b.jpg" %}" title="Truthful Innocence">
-                        <img alt="Truthful Innocence" src="{% static "Images/photos/7302459122_19fa1d8223_m.jpg" %}"/>
-                    </a>
-                    <a href="{% static "Images/photos/7222046648_5bf70e893a_b.jpg" %}" title="Simply my Brother">
-                        <img alt="Simply my Brother" src="{% static "Images/photos/7222046648_5bf70e893a_m.jpg" %}"/>
-                    </a>
-                    <a href="{% static "Images/photos/7002395006_29fdc85f7a_b.jpg" %}" title="Freedom">
-                        <img alt="Freedom" src="{% static "Images/photos/7002395006_29fdc85f7a_m.jpg" %}"/>
-                    </a>
-                    <a href="{% static "Images/photos/7062575651_b23918b11a_b.jpg" %}" title="Maybe spring">
-                        <img alt="Maybe spring" src="{% static "Images/photos/7062575651_b23918b11a_m.jpg" %}"/>
-                    </a>
-                    <a href="{% static "Images/photos/6841267340_855273fd7e_b.jpg" %}" title="Love">
-                        <img alt="Love" src="{% static "Images/photos/6841267340_855273fd7e_m.jpg" %}"/>
-                    </a>
-                    <a href="{% static "Images/photos/6958456697_e56a37bb5f_b.jpg" %}" title="Young Lovers' Wall and the Old Rain">
-                        <img alt="Young Lovers' Wall and the Old Rain" src="{% static "Images/photos/6958456697_e56a37bb5f_m.jpg" %}"/>
-                    </a>
-                    <a href="{% static "Images/photos/6791628438_affaa19e10_b.jpg" %}" title="This is the colors I love">
-                        <img alt="This is the colors I love" src="{% static "Images/photos/6791628438_affaa19e10_m.jpg" %}"/>
-                    </a>
-                    <a href="{% static "Images/photos/6916180091_9c9559e463_b.jpg" %}" title="The Hope">
-                        <img alt="The Hope" src="{% static "Images/photos/6916180091_9c9559e463_m.jpg" %}"/>
-                    </a>
-                    <a href="{% static "Images/photos/6880502467_d4b3c4b2a8_b.jpg" %}" title="Florence streets. Florence people.">
-                        <img alt="Florence streets. Florence people." src="{% static "Images/photos/6880502467_d4b3c4b2a8_m.jpg" %}"/>
-                    </a>
-                    <a href="{% static "Images/photos/6876412479_6268c6e2aa_b.jpg" %}" title="I Love You">
-                        <img alt="I Love You" src="{% static "Images/photos/6876412479_6268c6e2aa_m.jpg" %}"/>
-                    </a>
-                    <a href="{% static "Images/photos/6840627709_92ed52fb41_b.jpg" %}" title="The painter in Florence">
-                        <img alt="The painter in Florence" src="{% static "Images/photos/6840627709_92ed52fb41_m.jpg" %}"/>
-                    </a>
-                    <a href="{% static "Images/photos/6812090617_5fd5bbdda0_b.jpg" %}" title="Me and My Belover">
-                        <img alt="Me and My Belover" src="{% static "Images/photos/6812090617_5fd5bbdda0_m.jpg" %}"/>
-                    </a>
-                    <a href="{% static "Images/photos/6806687375_07d2b7a1f9_b.jpg" %}" title="Fiocco">
-                        <img alt="Fiocco" src="{% static "Images/photos/6806687375_07d2b7a1f9_m.jpg" %}"/>
-                    </a>
-                    <a href="{% static "Images/photos/6798453217_72dea2d06e_b.jpg" %}" title="My first clothespin">
-                        <img alt="My first clothespin" src="{% static "Images/photos/6798453217_72dea2d06e_m.jpg" %}"/>
-                    </a>
+                    {% for image in images %}
+                        <a href="./{{ image.id }}" title="{{ image.title }}">
+                            <img alt="{{ image.title }}" src="/static/{{ image.image }}"/>
+                        </a>
+                    {% endfor %}
                 </div>
             </div>
         </div>

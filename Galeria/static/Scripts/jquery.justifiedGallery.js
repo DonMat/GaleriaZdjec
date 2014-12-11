@@ -16,12 +16,12 @@
     // Default options
     var defaults = {
       sizeRangeSuffixes : {
-        'lt100': '_t', 
-        'lt240': '_m', 
-        'lt320': '_n', 
-        'lt500': '', 
-        'lt640': '_z', 
-        'lt1024': '_b'
+        //'lt100': '_t',
+        //'lt240': '_m',
+        //'lt320': '_n',
+        //'lt500': '',
+        //'lt640': '_z',
+        'lt1024': ''
       },
       rowHeight : 120,
       maxRowHeight : 0, //negative value = no limits, 0 = 1.5 * rowHeight
@@ -47,7 +47,7 @@
     };
 
     function getSuffix(width, height, context) {
-      var longestSide;
+      /*var longestSide;
       longestSide = (width > height) ? width : height;
       if (longestSide <= 100) {
         return context.settings.sizeRangeSuffixes.lt100;
@@ -59,9 +59,9 @@
         return context.settings.sizeRangeSuffixes.lt500;
       } else if (longestSide <= 640) {
         return context.settings.sizeRangeSuffixes.lt640;
-      } else {
+      } else {*/
         return context.settings.sizeRangeSuffixes.lt1024;
-      }
+      //}
     }
 
     function endsWith(str, suffix) {
@@ -459,11 +459,11 @@
       if (typeof settings.sizeRangeSuffixes !== 'object')
         throw 'sizeRangeSuffixes must be defined and must be an object';
 
-      checkSuffixesRange('lt100');
-      checkSuffixesRange('lt240');
-      checkSuffixesRange('lt320');
-      checkSuffixesRange('lt500');
-      checkSuffixesRange('lt640');
+      //checkSuffixesRange('lt100');
+      //checkSuffixesRange('lt240');
+      //checkSuffixesRange('lt320');
+      //checkSuffixesRange('lt500');
+      //checkSuffixesRange('lt640');
       checkSuffixesRange('lt1024');
 
       checkOrConvertNumber(settings, 'rowHeight');

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block head %}
+    <title>{{ image.title }}</title>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 grey-layer">
+            <div class="row">
+                <div class="container">
+                    <div class="row">
+                        <img alt="{{ image.title }}" src="/static/{{ image.image }}"/>
+                    </div>
+                    <div class="row">
+                        <h1>
+                            {{ image.title }}
+                            <small>{{ image.description }}</small>
+                            {% if user.is_authenticated %}
+                                <a href="./edit" class="btn btn-default" type="button">
+                                    <i class="glyphicon glyphicon-wrench icon-user icon-white"></i> Edytuj
+                                </a>
+                            {% endif %}
+                        </h1>
+                    </div>
+                    <div class="row">
+                        <span>data utworzenia: </span>
+                        {{ image.date_created }}
+                    </div>
+                    <div class="row">
+                        <span>tagi: </span>
+                        {{ image.tags }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <hr>
+            </div>
+            <div class="row">
+                <h4>Dodaj komentarz:</h4>
+
+                <form role="form" action="./add_comment" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <textarea class="form-control" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Dodaj</button>
+                </form>
+                {% for comment in comments %}
+                    <div class="media">
+                        <div class="media-body">
+                            <h4 class="media-heading"> {{ comment.user }}
+                                <small>{{ comment.date_created }}</small>
+                            </h4>
+                            {{ comment.comment }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

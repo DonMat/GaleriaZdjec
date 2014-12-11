@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class Album(models.Model):
     user = models.ForeignKey(User)
-    title = models.TextField(max_length=50)
+    title = models.CharField(max_length=50)
     description = models.TextField(max_length=250, default='')
 
     def __str__(self):
@@ -11,7 +11,7 @@ class Album(models.Model):
 
 class Obrazy(models.Model):
     album = models.ForeignKey(Album)
-    title = models.TextField(max_length=50)
+    title = models.CharField(max_length=50)
     description = models.TextField(max_length=250)
     date_created = models.DateTimeField(auto_now=True)
     image = models.ImageField(upload_to='photos')
@@ -27,5 +27,5 @@ class Comments(models.Model):
 
 class GallerySettings(models.Model):
     user = models.ForeignKey(User)
-    title = models.TextField(max_length=50)
+    title = models.CharField(max_length=50)
     description = models.TextField(max_length=250, default='')
