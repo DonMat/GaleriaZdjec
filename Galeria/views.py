@@ -104,7 +104,7 @@ def sub_album_edit(request, user_id, album_id):
             gallery = Album.objects.get(user_id=int(user_id), id=int(album_id))
             data = {'id': gallery.id, 'title': gallery.title, 'description': gallery.description}
             form = GalleryAlbumForm(initial=data)
-            return render(request, 'albums_edit.html', {'form': form})
+            return render(request, 'albums_edit.html', {'form': form, 'del': True})
     return render_to_response('404.html')
 
 def sub_album_delete(request, user_id, album_id):
