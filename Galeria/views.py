@@ -133,31 +133,26 @@ def image_edit(request, user_id, album_id, image_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/site/log_in')
     if request.user.id == int(user_id) or request.user.is_superuser:
+        image = Obrazy.objects.get(id=image_id)
+
         if request.method == 'POST':
-            form = UploadImageForm(request.POST)
-            if form.is_valid():  #TODO nie przechodzi walidacja, nie wiem dlaczego
-                cd = form.cleaned_data
-                image = Obrazy(title=cd['title'],
-                               description=cd['description'],
-                               album_id=album_id,
-                               date_created=datetime.now(),
-                               image=cd['image'],
-                               tags=cd['tags'])
-                image.user_id = user_id
-                image.save()
-                return HttpResponseRedirect('/site/albums/'+user_id+'/'+album_id+'/'+image_id)
-            else:
-                c = {}
-                c.update(csrf(request))
-                c['form'] = form
-                return render(request, 'image_edit.html', c)
+            title = request.POST.get('title', '')
+            description = request.POST.get('description', '')
+            tags = request.POST.get('tags', '')
+
+            image.title = title
+            image.description = description
+            image.tags = tags
+
+            image.save(update_fields=['title', 'description', 'tags'])
+            return HttpResponseRedirect('/site/albums/'+user_id+'/'+album_id+'/'+image_id)
+
         else:
-            image = Obrazy.objects.get(id=int(image_id))
             data = {'id': image.id, 'title': image.title, 'description': image.description,
-                    'album': image.album_id, 'date_created': image.date_created,
-                    'image': image.image, 'tags': image.tags}
+                    'tags': image.tags}
             form = UploadImageForm(initial=data)
             return render(request, 'image_edit.html', {'form': form})
+
     return render_to_response('404.html')
 
 def image_delete(request, user_id, album_id, image_id):
