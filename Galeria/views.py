@@ -167,7 +167,7 @@ def image_delete(request, user_id, album_id, image_id):
         obraz = Obrazy.objects.get(album=int(album_id), id=int(image_id))
         if not None:
             obraz.delete()
-            return sub_album_view(request, user_id, album_id)
+            return HttpResponseRedirect('/site/albums/'+user_id+'/'+album_id)
 
     return render_to_response('404.html')
 
