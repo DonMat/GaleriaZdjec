@@ -23,7 +23,7 @@ class Obrazy(models.Model):
 class Comments(models.Model):
     user = models.ForeignKey(User)
     obraz = models.ForeignKey(Obrazy)
-    comment = models.SlugField(max_length=1000)
+    comment = models.TextField(max_length=1000)
     date_created = models.DateTimeField(auto_now=True)
 
 

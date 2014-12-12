@@ -16,11 +16,11 @@
                             {{ image.title }}
                             <small>{{ image.description }}</small>
                             {% if user.is_authenticated %}
-                                {% ifequal user.id|stringformat:"s" owner%}
+                                {% if user.id|stringformat:"s" == owner or user.is_superuser%}
                                     <a href="./edit" class="btn btn-default" type="button">
                                         <i class="glyphicon glyphicon-wrench icon-user icon-white"></i> Edytuj
                                     </a>
-                                {% endifequal %}
+                                {% endif %}
                             {% endif %}
                         </h1>
                     </div>
@@ -38,16 +38,18 @@
                 <hr>
             </div>
             <div class="row">
-                <h4>Dodaj komentarz:</h4>
-
-                <form role="form" action="./add_comment" method="post">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <textarea id="id_comment" name="comment" class="form-control" rows="3"></textarea>
-
-                    </div>
-                    <button type="submit" class="btn btn-primary">Dodaj</button>
-                </form>
+                {% if user.is_authenticated %}
+                    <h4>Dodaj komentarz:</h4>
+                    <form role="form" action="./add_comment" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <textarea id="id_comment" name="comment" class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Dodaj</button>
+                    </form>
+                {% else %}
+                    Zaloguj się aby móc dodawać komentarze
+                {% endif %}
                 {% for comment in comments %}
                     <div class="media">
                         <div class="media-body">

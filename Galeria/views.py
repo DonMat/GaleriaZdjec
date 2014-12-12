@@ -8,6 +8,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from datetime import datetime
 from Galeria.forms import *
 from Galeria.models import *
+from itertools import chain
 from django.template import RequestContext
 from django.shortcuts import render
 
@@ -119,8 +120,6 @@ def sub_album_delete(request, user_id, album_id):
 
 
 def image_view(request, user_id, album_id, image_id):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect('/site/log_in')
     try:
         image = Obrazy.objects.get(id=int(image_id))
     except ObjectDoesNotExist:
@@ -214,8 +213,14 @@ def add_comment(request, user_id, album_id, image_id):
         return render(request, 'image.html', c)
 
 
-def search(request, query):
-    return render(request, "search.html")
+def search(request):
+    q = request.GET.get('q')
+    tags = q.split(' ')
+    images = []
+    for tag in tags:
+        part_images = Obrazy.objects.filter(tags__contains=tag)
+        images = list(chain(images,part_images))
+    return render(request, "search.html", {'images': images, 'query': q})
 
 
 def redirect_log_in(request):

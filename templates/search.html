@@ -11,7 +11,7 @@
             <div class="row">
                 <h1>
                     Wyniki wyszukiwania dla:
-                    <small>{{ query.q }}</small>
+                    <small>{{ query }}</small>
                 </h1>
                 <hr>
             </div>
@@ -19,8 +19,8 @@
                 {% if images %}
                     <div id="gallery">
                         {% for image in images %}
-                            <a href="./{{ image.id }}" title="{{ image.description }}">
-                                <img alt="{{ image.title }} by {{ image.user }}" src="/static/images/{{ image.image }}"/>
+                            <a href="/site/albums/{{ image.album.user_id }}/{{ image.album_id }}/{{ image.id }}/" title="{{ image.description }}">
+                                <img alt="{{ image.title }} by {{ image.album.user }}" src="/static/images/{{ image.image }}"/>
                             </a>
                         {% endfor %}
                     </div>
