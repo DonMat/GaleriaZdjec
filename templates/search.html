@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block head %}
+    <link rel='stylesheet' href={% static "Styles/colorbox.css" %}/>
+    <link rel='stylesheet' href={% static "Styles/justifiedGallery.css" %}/>
+    <title>{{ album.title }}</title>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 grey-layer">
+            <div class="row">
+                <h1>
+                    Wyniki wyszukiwania dla:
+                    <small>{{ query.q }}</small>
+                </h1>
+                <hr>
+            </div>
+            <div class="row">
+                {% if images %}
+                    <div id="gallery">
+                        {% for image in images %}
+                            <a href="./{{ image.id }}" title="{{ image.description }}">
+                                <img alt="{{ image.title }} by {{ image.user }}" src="/static/images/{{ image.image }}"/>
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div>Brak zdjęć w albumie</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static "Scripts/jquery.colorbox-min.js" %}"></script>
+    <script src="{% static "Scripts/jquery.justifiedGallery.js" %}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#gallery').justifiedGallery({
+                rowHeight: 120,
+                maxRowHeight: 200,
+                margins: 5,
+                lastRow: 'nojustify',
+                fixedHeight: false,
+                captions: true,
+                randomize: false
+            });
+        });
+    </script>
+{% endblock %}
