@@ -127,7 +127,7 @@ def image_view(request, user_id, album_id, image_id):
         return render_to_response('404.html')
 
     comments = Comments.objects.filter(obraz_id=int(image_id))
-    return render(request, 'image.html', {'image': image, 'comments': comments})
+    return render(request, 'image.html', {'image': image, 'comments': comments, 'owner':user_id})
 
 def image_edit(request, user_id, album_id, image_id):
     if not request.user.is_authenticated():
@@ -193,7 +193,6 @@ def image_upload(request, user_id, album_id):
         return render(request, 'image_upload.html', c)
     return render_to_response('404.html')
 
-
 def add_comment(request, user_id, album_id, image_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/site/log_in')
@@ -215,7 +214,9 @@ def add_comment(request, user_id, album_id, image_id):
         return render(request, 'image.html', c)
 
 
-    return render_to_response('404.html')
+def search(request, query):
+    return render(request, "search.html")
+
 
 def redirect_log_in(request):
     return HttpResponseRedirect('/site/log_in')
