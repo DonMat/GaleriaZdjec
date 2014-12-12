@@ -16,18 +16,25 @@
                         <a href="./edit" class="btn btn-default" type="button">
                             <i class="glyphicon glyphicon-wrench icon-user icon-white"></i> Edytuj
                         </a>
+                        <a href="./upload" class="btn btn-default" type="button">
+                            <i class="glyphicon glyphicon-wrench icon-user icon-white"></i> Dodaj zdjęcie do albumu
+                        </a>
                     {% endif %}
                 </h1>
                 <hr>
             </div>
             <div class="row">
-                <div id="gallery">
-                    {% for image in images %}
-                        <a href="./{{ image.id }}" title="{{ image.title }}">
-                            <img alt="{{ image.title }}" src="/static/{{ image.image }}"/>
-                        </a>
-                    {% endfor %}
-                </div>
+                {% if images %}
+                    <div id="gallery">
+                        {% for image in images %}
+                            <a href="./{{ image.id }}" title="{{ image.description }}">
+                                <img alt="{{ image.title }}" src="/static/images/{{ image.image }}"/>
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div>Brak zdjęć w albumie</div>
+                {% endif %}
             </div>
         </div>
     </div>

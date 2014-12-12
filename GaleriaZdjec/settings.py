@@ -80,13 +80,13 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
+# Static files (CSS, JavaScript, images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
 
-MEDIA_URL = '/Images/'
-MEDIA_ROOT =  os.path.join(Galeria.__path__[0],  'static/Images/')
+MEDIA_URL = '/images/'
+MEDIA_ROOT =  os.path.join(Galeria.__path__[0],  'static/images/')
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),

@@ -5,11 +5,11 @@
 {% endblock %}
 {% block content %}
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 grey-layer">
+        <div class="container col-xs-12 col-sm-12 col-md-12 col-lg-12 grey-layer">
             <div class="row">
-                <div class="container">
+                <div class="container col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="row">
-                        <img alt="{{ image.title }}" src="/static/{{ image.image }}"/>
+                        <img alt="{{ image.title }}" class="img-responsive" src="/static/images/{{ image.image }}"/>
                     </div>
                     <div class="row">
                         <h1>

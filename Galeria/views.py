@@ -5,6 +5,7 @@ from django.contrib import auth
 from django.core.context_processors import csrf
 from django.template.defaultfilters import title
 from django.core.exceptions import ObjectDoesNotExist
+from datetime import datetime
 from Galeria.forms import *
 from Galeria.models import *
 from django.template import RequestContext
@@ -15,7 +16,7 @@ def main_album(request, user_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/site/log_in')
 
-    if request.user.id == int(user_id):
+    if request.user.id == int(user_id) or request.user.is_superuser:
         albums = Album.objects.filter(user_id=int(user_id))
         gallery = GallerySettings.objects.get(user_id=int(user_id))
         return render(request, "albums.html", {'albums' : albums, 'gallery': gallery})
@@ -26,7 +27,7 @@ def main_album_edit(request, user_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/site/log_in')
 
-    if request.user.id == int(user_id):
+    if request.user.id == int(user_id) or request.user.is_superuser:
         if request.method == 'POST':
             form = GallerySettingsForm(request.POST)
             if form.is_valid():
@@ -54,7 +55,7 @@ def main_album_edit(request, user_id):
 def sub_album_view(request, user_id, album_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/site/log_in')
-    if request.user.id == int(user_id):
+    if request.user.id == int(user_id) or request.user.is_superuser:
         album = Album.objects.get(user_id=int(user_id), id=int(album_id))
         images = Obrazy.objects.filter(album_id=int(album_id))
         return render(request, 'album.html', {'album': album, 'images' : images, 'image_path': request.path})
@@ -63,7 +64,7 @@ def sub_album_view(request, user_id, album_id):
 def sub_album_create(request, user_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/site/log_in')
-    if request.user.id == int(user_id):
+    if request.user.id == int(user_id) or request.user.is_superuser:
         if request.method == 'POST':
             form = GalleryAlbumForm(request.POST)
             if form.is_valid():
@@ -71,7 +72,7 @@ def sub_album_create(request, user_id):
                 album = Album(title=cd['title'], description=cd['description'])
                 album.user_id = user_id
                 album.save()
-                return HttpResponseRedirect('/site/albums/' + str(user_id))
+                return HttpResponseRedirect('/site/albums/' + user_id)
         else:
             form = GalleryAlbumForm()
 
@@ -84,7 +85,7 @@ def sub_album_create(request, user_id):
 def sub_album_edit(request, user_id, album_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/site/log_in')
-    if request.user.id == int(user_id):
+    if request.user.id == int(user_id) or request.user.is_superuser:
         if request.method == 'POST':
             form = GalleryAlbumForm(request.POST)
             if form.is_valid():
@@ -93,7 +94,7 @@ def sub_album_edit(request, user_id, album_id):
                 gallery.description = cd['description']
                 gallery.title = cd['title']
                 gallery.save()
-                return HttpResponseRedirect('/site/albums/' + str(request.user.id) + '/'+album_id)
+                return HttpResponseRedirect('/site/albums/' + user_id + '/'+album_id)
             else:
                 c = {}
                 c.update(csrf(request))
@@ -107,10 +108,12 @@ def sub_album_edit(request, user_id, album_id):
     return render_to_response('404.html')
 
 def sub_album_delete(request, user_id, album_id):
-    alb = Album.objects.get(user_id=int(user_id), id=int(album_id))
-    if not None:
-        alb.delete()
-
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/site/log_in')
+    if request.user.id == int(user_id) or request.user.is_superuser:
+        alb = Album.objects.get(user_id=int(user_id), id=int(album_id))
+        if not None:
+            alb.delete()
     return HttpResponseRedirect('/site/albums/'+user_id+'/')
 
 
@@ -127,32 +130,65 @@ def image_view(request, user_id, album_id, image_id):
     return render(request, 'image.html', {'image': image, 'comments': comments})
 
 def image_edit(request, user_id, album_id, image_id):
-    # TODO edycja zdjęcia
-    return ""
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/site/log_in')
+    if request.user.id == int(user_id) or request.user.is_superuser:
+        if request.method == 'POST':
+            form = UploadImageForm(request.POST)
+            if form.is_valid():  #TODO nie przechodzi walidacja, nie wiem dlaczego
+                cd = form.cleaned_data
+                image = Obrazy(title=cd['title'],
+                               description=cd['description'],
+                               album_id=album_id,
+                               date_created=datetime.now(),
+                               image=cd['image'],
+                               tags=cd['tags'])
+                image.user_id = user_id
+                image.save()
+                return HttpResponseRedirect('/site/albums/'+user_id+'/'+album_id+'/'+image_id)
+            else:
+                c = {}
+                c.update(csrf(request))
+                c['form'] = form
+                return render(request, 'image_edit.html', c)
+        else:
+            image = Obrazy.objects.get(id=int(image_id))
+            data = {'id': image.id, 'title': image.title, 'description': image.description,
+                    'album': image.album_id, 'date_created': image.date_created,
+                    'image': image.image, 'tags': image.tags}
+            form = UploadImageForm(initial=data)
+            return render(request, 'image_edit.html', {'form': form})
+    return render_to_response('404.html')
 
 def image_delete(request, user_id, album_id, image_id):
     # TODO usuwanie obrazka
     return sub_album_view(request, user_id, album_id)
 
-def image_upload(request, user_id):       #, album_id):     opcja nie wiem czy sie przyda
+def image_upload(request, user_id, album_id):
     if not request.user.is_authenticated():
         return HttpResponseRedirect('/site/log_in')
 
-    if request.user.id == int(user_id):
+    if request.user.id == int(user_id) or request.user.is_superuser:
         if request.method == 'POST':
             form = UploadImageForm(request.POST, request.FILES)
-
             if form.is_valid():
-                form.save()
-
-                return HttpResponseRedirect('/site/albums/'+user_id+'/')
+                cd = form.cleaned_data
+                image = Obrazy(title=cd['title'],
+                               description=cd['description'],
+                               album_id=album_id,
+                               date_created=datetime.now(),
+                               image=cd['image'],
+                               tags=cd['tags'])
+                image.user_id = user_id
+                image.save()
+                return HttpResponseRedirect('/site/albums/'+user_id+'/'+album_id+'/')
         else:
             form = UploadImageForm()
 
         c = {}
         c.update(csrf(request))
         c['form'] = form
-        return render(request, 'upload.html', c)
+        return render(request, 'image_upload.html', c)
     return render_to_response('404.html')
 
 

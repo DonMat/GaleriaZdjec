@@ -32,12 +32,10 @@
                     {{ form.tags|att:"placeholder:Wpisz tagi, które najtrafniej opisujące zdjęcie oddzielając je od siebie spacją ;required:true;tabindex:3;class:form-control input-lg" }}
                 </div>
                 <input type="submit" class="btn btn-lg btn-primary btn-block" value="Wgraj">
-                {{ form }}
             </form>
         </div>
     </div>
 {% endblock %}
-
 {% block scripts %}
     <script src="{% static "Scripts/fileinput.js" %}"></script>
 {% endblock %}
