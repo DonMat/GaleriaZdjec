@@ -161,8 +161,15 @@ def image_edit(request, user_id, album_id, image_id):
     return render_to_response('404.html')
 
 def image_delete(request, user_id, album_id, image_id):
-    # TODO usuwanie obrazka
-    return sub_album_view(request, user_id, album_id)
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/site/log_in')
+    if request.user.id == int(user_id) or request.user.is_superuser:
+        obraz = Obrazy.objects.get(album=int(album_id), id=int(image_id))
+        if not None:
+            obraz.delete()
+            return sub_album_view(request, user_id, album_id)
+
+    return render_to_response('404.html')
 
 def image_upload(request, user_id, album_id):
     if not request.user.is_authenticated():
