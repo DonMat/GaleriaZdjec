@@ -41,7 +41,8 @@
                 <form role="form" action="./add_comment" method="post">
                     {% csrf_token %}
                     <div class="form-group">
-                        <textarea class="form-control" rows="3"></textarea>
+                        <textarea id="id_comment" name="comment" class="form-control" rows="3"></textarea>
+
                     </div>
                     <button type="submit" class="btn btn-primary">Dodaj</button>
                 </form>

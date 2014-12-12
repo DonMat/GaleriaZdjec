@@ -24,7 +24,7 @@ class Comments(models.Model):
     user = models.ForeignKey(User)
     obraz = models.ForeignKey(Obrazy)
     comment = models.SlugField(max_length=1000)
-    date_created = models.DateTimeField()
+    date_created = models.DateTimeField(auto_now=True)
 
 
 class GallerySettings(models.Model):

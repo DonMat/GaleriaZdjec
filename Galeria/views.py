@@ -200,9 +200,27 @@ def image_upload(request, user_id, album_id):
 
 
 def add_comment(request, user_id, album_id, image_id):
-    # TODO dodanie komentarza
-    return image_view(request, user_id, album_id, image_id)
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/site/log_in')
+    else:
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            comment = Comments(comment=cd['comment'])
+            comment.user = request.user
+            comment.obraz = Obrazy.objects.get(id=image_id)
+            comment.save()
+            return image_view(request, user_id, album_id, image_id)
+        else:
+            form = CommentForm()
 
+        c = {}
+        c.update(csrf(request))
+        c['form'] = form
+        return render(request, 'image.html', c)
+
+
+    return render_to_response('404.html')
 
 def redirect_log_in(request):
     return HttpResponseRedirect('/site/log_in')
