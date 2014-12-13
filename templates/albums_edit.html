@@ -1,31 +1,38 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load custom_templates %}
 {% block head %}
-    <title>Albumy</title>
+    <title>Zarządzanie</title>
 {% endblock %}
 {% block content %}
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 grey-layer">
-        {% if del == True %}
-            <a href="./delete" class="btn btn-default" type="button">
-                <i class="glyphicon glyphicon-wrench icon-user icon-white"></i> Usuń
-            </a>
-        {% endif %}
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 grey-layer">
+            <div class="row">
+                <h1>Zarządzanie albumami</h1>
+                {% if del == True %}
+                    <a href="./delete" class="btn btn-default" type="button">
+                        <i class="glyphicon glyphicon-wrench icon-user icon-white"></i> Usuń
+                    </a>
+                {% endif %}
+                <hr>
+            </div>
             <form method="post">
                 {% csrf_token %}
-                <div class="row">
-                    <div class="col-xs-12">
-                        <h1>
-                            {{ form.title }}
-                            <small>{{ form.description }}</small>
-                            {% if user.is_authenticated %}
-                                <button type="submit" class="btn btn-default">
-                                    <i class="glyphicon glyphicon-wrench icon-user icon-white"></i> Zapisz
-                                </button>
-                            {% endif %}
-                        </h1>
+                <div class="form-group">
+                    {{ form.title|att:"placeholder:Tytuł albumu;required:true;tabindex:1;class:form-control input-lg" }}
+                    <div class="error-message">
+                        {{ form.errors|get_error:"title" }}
                     </div>
                 </div>
+                <div class="form-group">
+                    {{ form.description|att:"placeholder:Opis zdjęcia;required:true;tabindex:2;class:form-control input-lg" }}
+                    <div class="error-message">
+                        {{ form.errors|get_error:"description" }}
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-default">
+                    <i class="glyphicon glyphicon-wrench icon-user icon-white"></i> Zapisz
+                </button>
             </form>
         </div>
     </div>

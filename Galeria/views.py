@@ -79,7 +79,7 @@ def sub_album_create(request, user_id):
         c = {}
         c.update(csrf(request))
         c['form'] = form
-        return render(request, 'album_add.html', c)
+        return render(request, 'albums_edit.html', c)
     return render_to_response('404.html')
 
 def sub_album_edit(request, user_id, album_id):
