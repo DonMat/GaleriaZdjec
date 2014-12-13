@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% load custom_tag %}
+{% load custom_templates %}
 {% block head %}
     <title>Rejestracja</title>
 {% endblock %}
@@ -14,29 +14,42 @@
                 <hr>
             </div>
             <form id="register-form" action="" role="form" method="post">
-                {% csrf_token %} 
+                {% csrf_token %}
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
                             {{ form.first_name|att:"placeholder:Imię;required:true;tabindex:1;class:form-control input-lg" }}
+                            <div class="error-message">
+                                {{ form.errors|get_error:"first_name" }}
+                            </div>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
                             {{ form.last_name|att:"placeholder:Nazwisko;required:true;tabindex:2;class:form-control input-lg" }}
+                            <div class="error-message">
+                                {{ form.errors|get_error:"last_name" }}
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     {{ form.username|att:"placeholder:Login;required:true;tabindex:3;class:form-control input-lg" }}
+                    <div class="error-message">
+                        {{ form.errors|get_error:"username" }}
+                    </div>
                 </div>
                 <div class="form-group">
                     {{ form.email|att:"placeholder:Adres email;required:true;tabindex:4;class:form-control input-lg" }}
+                    <div class="error-message">
+                        {{ form.errors|get_error:"email" }}
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
                             {{ form.password1|att:"placeholder:Hasło;required:true;tabindex:5;class:form-control input-lg" }}
+
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
@@ -45,8 +58,11 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="pass-are-different">
-                            Podane hasła różnią się!
+                        <div class="error-message">
+                            {{ form.errors|get_error:"password2" }}
+                            <div class="pass-are-different">
+                                Podane hasła różnią się!
+                            </div>
                         </div>
                     </div>
                 </div>

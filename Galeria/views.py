@@ -76,7 +76,6 @@ def sub_album_create(request, user_id):
                 return HttpResponseRedirect('/site/albums/' + user_id)
         else:
             form = GalleryAlbumForm()
-
         c = {}
         c.update(csrf(request))
         c['form'] = form
@@ -133,19 +132,15 @@ def image_edit(request, user_id, album_id, image_id):
         return HttpResponseRedirect('/site/log_in')
     if request.user.id == int(user_id) or request.user.is_superuser:
         image = Obrazy.objects.get(id=image_id)
-
         if request.method == 'POST':
             title = request.POST.get('title', '')
             description = request.POST.get('description', '')
             tags = request.POST.get('tags', '')
-
             image.title = title
             image.description = description
             image.tags = tags
-
             image.save(update_fields=['title', 'description', 'tags'])
             return HttpResponseRedirect('/site/albums/'+user_id+'/'+album_id+'/'+image_id)
-
         else:
             data = {'id': image.id, 'title': image.title, 'description': image.description,
                     'tags': image.tags}
@@ -240,7 +235,7 @@ def auth_view(request):
             ctx = RequestContext(request, {'user': user})
             return HttpResponseRedirect('/site/albums/' + str(user.id), ctx)
         else:
-            return HttpResponseRedirect('/site/log_in')
+            return render(request, "log_in.html", {'message': "Nieprawidłowy login lub hasło"})
     return render(request, "log_in.html")
 
 def log_out(request):
@@ -256,11 +251,16 @@ def register(request):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/site/log_in/')
-
-    c = {}
-    c.update(csrf(request))
-    c['form'] = RegisterForm()
-    return render(request, 'register.html', c)
+        else:
+            c = {}
+            c.update(csrf(request))
+            c['form'] = form
+            return render(request, 'register.html', c)
+    else:
+        c = {}
+        c.update(csrf(request))
+        c['form'] = RegisterForm()
+        return render(request, 'register.html', c)
 
 
 

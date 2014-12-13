@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% load custom_tag %}
+{% load custom_templates %}
 {% block head %}
     <link rel='stylesheet' href={% static "Styles/fileinput.css" %}/>
     <title>Edycja zdjęcia</title>
@@ -26,7 +26,9 @@
                 <div class="form-group">
                     {{ form.tags|att:"placeholder:Wpisz tagi, które najtrafniej opisujące zdjęcie oddzielając je od siebie spacją ;required:true;tabindex:3;class:form-control input-lg" }}
                 </div>
-
+                <div class="error-message">
+                    {{ message }} asdas
+                </div>
                 <input type="submit" class="btn btn-lg btn-primary btn-block" value="Wgraj">
             </form>
         </div>

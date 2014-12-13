@@ -19,11 +19,14 @@
 }
 
 .pass-are-different {
+    visibility: hidden;
+}
+
+.error-message{
     color: red;
     padding: 3px;
     padding-top: 0;
     font-weight: bold;
-    visibility: hidden;
     text-align: center;
 }
 
