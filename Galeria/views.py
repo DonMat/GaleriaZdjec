@@ -235,7 +235,10 @@ def auth_view(request):
             ctx = RequestContext(request, {'user': user})
             return HttpResponseRedirect('/site/albums/' + str(user.id), ctx)
         else:
-            return render(request, "log_in.html", {'message': "Nieprawidłowy login lub hasło"})
+            c = {}
+            c.update(csrf(request))
+            c['message'] = "Nieprawidłowy login lub hasło"
+            return render(request, "log_in.html", c)
     return render(request, "log_in.html")
 
 def log_out(request):
