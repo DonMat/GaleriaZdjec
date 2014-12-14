@@ -16,6 +16,7 @@ urlpatterns = patterns('',
                        url(r'^albums/(?P<user_id>\d+)/(?P<album_id>\d+)/delete$', sub_album_delete),
                        url(r'^albums/(?P<user_id>\d+)/(?P<album_id>\d+)/(?P<image_id>\d+)/$', image_view),
                        url(r'^albums/(?P<user_id>\d+)/(?P<album_id>\d+)/(?P<image_id>\d+)/add_comment$', add_comment),
+                       url(r'^albums/(?P<user_id>\d+)/(?P<album_id>\d+)/(?P<image_id>\d+)/(?P<comment_id>\d+)/del_comment$', del_comment),
                        url(r'^albums/(?P<user_id>\d+)/(?P<album_id>\d+)/(?P<image_id>\d+)/edit$', image_edit),
                        url(r'^albums/(?P<user_id>\d+)/(?P<album_id>\d+)/(?P<image_id>\d+)/delete$', image_delete),
 )

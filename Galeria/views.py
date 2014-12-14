@@ -273,3 +273,9 @@ def error403(request):
 def error404(request):
     return render_to_response('404.html')
 
+def del_comment(request, user_id, album_id, image_id, comment_id):
+    if request.user.is_superuser:
+        comment = Comments.objects.get(id=comment_id)
+        comment.delete()
+
+    return HttpResponseRedirect('/site/albums/'+user_id+'/'+album_id+'/'+image_id+'/')
