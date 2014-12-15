@@ -1,5 +1,6 @@
 ﻿{% extends "base.html" %}
 {% load staticfiles %}
+{% load custom_templates %}
 {% block head %}
     <title>{{ gallery.title }}</title>
 {% endblock %}
@@ -7,27 +8,27 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 grey-layer">
             <div class="row">
-                <div class="col-xs-12">
-                    <h1>
-                        {{ gallery.title }}
-                        <small>{{ gallery.description }}</small>
-                        {% if user.is_authenticated %}
-                            <a href="./edit" class="btn btn-default" type="button">
-                                <i class="glyphicon glyphicon-wrench icon-user icon-white"></i> Edytuj
-                            </a>
-                            <a href="./create" class="btn btn-default" type="button">
-                                <i class="glyphicon glyphicon-wrench icon-user icon-white"></i> Dodaj album
-                            </a>
-                        {% endif %}
-                    </h1>
-                </div>
+                <h1>
+                    {{ gallery.title }}
+                    <small>{{ gallery.description }}</small>
+                    {% if user.is_authenticated %}
+                        <a href="./edit" class="btn btn-default" type="button">
+                            <i class="glyphicon glyphicon-wrench icon-user icon-white"></i> Edytuj
+                        </a>
+                        <a href="./create" class="btn btn-default" type="button">
+                            <i class="glyphicon glyphicon-wrench icon-user icon-white"></i> Dodaj album
+                        </a>
+                    {% endif %}
+                </h1>
             </div>
-            <hr>
+            <div class="row"><hr></div>
             <div class="row">
                 {% for album in albums %}
                     <div class="col-md-4 portfolio-item">
                         <a href="./{{ album.id }}/">
-                            <img class="img-responsive" src="http://placehold.it/700x400" alt="">
+                            <div class=center-cropped">
+                                <img class="center-cropped img-responsive" src="{{ album.id|get_album_cover }}" alt="">
+                            </div>
                         </a>
 
                         <h3>

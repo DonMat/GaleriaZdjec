@@ -1,4 +1,5 @@
 from django import template
+from Galeria.models import Obrazy
 from django.utils.safestring import mark_safe
 
 register = template.Library()
@@ -27,3 +28,12 @@ def get_error(dict, key):
         for error in errors:
             error_message += error
     return error_message
+
+@register.filter(name='get_album_cover')
+def get_album_cover(id):
+    images = Obrazy.objects.filter(album_id=int(id))
+    if not images:
+        path = "/static/images/no_images.png"
+    else:
+        path = "/static/images/" + str(images.order_by('?')[0].image)
+    return path
